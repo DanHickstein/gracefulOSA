@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jun 19 15:14:22 2017
-
 This program acquires spectra using a ANDO 6315E and rotates a Thorlabs K10CR1 rotation stage.
 
 By Grace Kerber and Dan Hickstein
+Based on code from Connor Fredrick,
 
 This program requires that the Thorlabs Kinesis drivers are in the same folder as this program.
 
@@ -38,7 +37,10 @@ NumOfPoints     = 150   # number of data points (different power) to be collecte
 # initialize the ANDO
 sens = ["SNHD", "SNAT", "SHI1", "SHI2", "SHI3"]
 if val_sens == 0:
-    raise ValueError('Oh god! Did you really mean to set this to Norm Hold? (val_sens=0). That mode is terrible.')
+    raise ValueError("""
+        Oh my! Did you really mean to set this to Norm Hold? (val_sens=0). 
+        That is probably not what you want."""
+                     )
 rm = visa.ResourceManager()
 osa = rm.get_instrument("GPIB0::20::INSTR")
 osa.write(sens[val_sens])
